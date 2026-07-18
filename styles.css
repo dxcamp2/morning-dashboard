@@ -56,3 +56,42 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+.weather-card {
+    grid-column: 1 / -1;
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.weather-period {
+    background-color: #eef4fa;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.weather-period h3 {
+    margin-top: 0;
+    color: #12355b;
+}
+
+.weather-temperature {
+    margin: 8px 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+@media (max-width: 900px) {
+    .weather-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .weather-grid {
+        grid-template-columns: 1fr;
+    }
+}
