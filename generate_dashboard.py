@@ -254,7 +254,7 @@ def generate_dashboard():
 <body>
     <header>
         <h1>Doug's Morning Dashboard</h1>
-        <p>Weather, space, sports, news, and local information</p>
+        <p>Charlotte weather and NASA's Astronomy Picture of the Day</p>
     </header>
 
     <main>
@@ -266,16 +266,6 @@ def generate_dashboard():
         <section class="dashboard-card nasa-card">
             <h2>NASA Astronomy Picture</h2>
             {nasa_html}
-        </section>
-
-        <section class="dashboard-card">
-            <h2>Naval Academy</h2>
-            <p>Navy news and sports information will be added here.</p>
-        </section>
-
-        <section class="dashboard-card">
-            <h2>Little Sugar Creek</h2>
-            <p>Creek gauge information will be added here.</p>
         </section>
     </main>
 
