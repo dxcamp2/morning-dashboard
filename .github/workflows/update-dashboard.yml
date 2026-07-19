@@ -1,0 +1,67 @@
+name: Update and deploy dashboard
+
+on:
+  push:
+    branches:
+      - main
+
+  schedule:
+    - cron: "5 7 * * *"
+      timezone: "America/New_York"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    env:
+      TZ: America/New_York
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Python packages
+        run: python -m pip install -r requirements.txt
+
+      - name: Generate dashboard
+        env:
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+        run: python generate_dashboard.py
+
+      - name: Prepare website files
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp styles.css _site/
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v5
